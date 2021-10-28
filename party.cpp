@@ -33,6 +33,32 @@ Party::Party(const char name[], const int size, const bool haveRequests, const c
 	this->contact = new ContactInfo(contact);
 }
 
+
+Party::Party(const Party& refParty)
+{
+	int strLen;
+
+	strLen = strlen(refParty.name);
+	this->name = new char[++strLen];
+	strcpy(this->name, refParty.name);
+	this->size = new int(*(refParty.size));
+	this->haveRequests = new bool(*(refParty.haveRequests));
+	if (*(this->haveRequests))
+	{
+		strLen = strlen(refParty.requests);
+		this->requests = new char[++strLen];
+		strcpy(this->requests, refParty.requests);
+	}
+	else
+	{
+		this->requests = new char[5];
+		strcpy(this->requests, "None\0");
+	}
+	this->wantPromos = new bool(*(refParty.wantPromos));
+	if (*(this->wantPromos))
+		this->contact = new ContactInfo(*(refParty.contact));
+}
+
 Party::~Party()
 {
 	delete [] name;
@@ -50,13 +76,30 @@ Party::~Party()
 }
 
 
+void Party::operator = (const Party& srcParty)
+{
+	int strLen;
+
+	strLen = strlen(srcParty.name);
+	this->name = new char[++strLen];
+	strcpy(this->name, srcParty.name);
+	this->size = new int(*(srcParty.size));
+	this->haveRequests = new bool(*(srcParty.haveRequests));
+	strLen = strlen(srcParty.requests);
+	this->requests = new char[++strLen];
+	strcpy(this->requests, srcParty.requests);
+	this->wantPromos = new bool(*(srcParty.wantPromos));
+	this->contact = new ContactInfo(*(srcParty.contact));
+}
+
+
 std::ostream& operator<<(std::ostream& out, const Party& Party)
 {
 	out << "Party Name: " << Party.name << std::endl;
 	out << "Size: " << *(Party.size) << std::endl;
 	out << "Special Requests: ";
 	if (*(Party.haveRequests))
-		out << *(Party.requests) << std::endl;
+		out << Party.requests << std::endl;
 	else
 		out << "None." << std::endl;
 	if (*(Party.wantPromos))

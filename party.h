@@ -15,8 +15,10 @@ class Party
 	public:
 		Party();
 		Party(const char name[], const int size, const bool haveRequests, const char requests[], const bool wantPromos, const ContactInfo& contact);
+		Party(const Party& refParty);
 		~Party();
-	
+		void operator = (const Party& srcParty);	
+
 		friend std::ostream& operator<<(std::ostream& out, const Party& party);
 
 	private:

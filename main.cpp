@@ -1,6 +1,6 @@
 #include "stack.h"
 
-int main()
+int main1()
 {
 	Stack stack;
 	ContactInfo contact1("Matthew Lidell", "mlidell@gmail.com");
