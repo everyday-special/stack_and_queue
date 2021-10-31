@@ -1,16 +1,32 @@
+/* Purpose: Defines the menu class member fuctions
+ * Author: Matthew Lidell
+ * CS260 Project 2
+ * Date: 10/31/2021
+ * file: menu.cpp
+ */
 #include "menu.h"
 
 Menu::Menu()
+/* Purpose: Default constructor for menu. Instantiates the queue, the stack with a starting maximum size of 4, and loads song data from file
+ * Parameters: None
+ * Return: None
+ */
 {
-	queue = new Queue();
-	stack = new Stack(4);
+	queue = new Queue(); // Instantiate queue object
+	stack = new Stack(4); // Instantiate stack object with initial maximum size of 4
 	if (stack->loadFromFile(FILENAME))
 		std::cout << "Loaded stack from file '" << FILENAME << "'." << std::endl;
 	else
 		std::cout << "Error loading stack from '" << FILENAME << "'." << std::endl;
 }
 
+
+
 Menu::~Menu()
+/* Purpose: Default destructor for Menu. Saves the song list before deallocating the queue and stack.
+ * Parameters: None
+ * Return: None
+ */
 {
 	if (stack->saveToFile(FILENAME))
 		std::cout << "Saved stack to file '" << FILENAME << "'." << std::endl;
@@ -22,9 +38,15 @@ Menu::~Menu()
 	stack = nullptr;
 }
 
+
+
 void Menu::run()
+/* Purpose: Runs the menu loop of 1) printing the menu, 2) getting user selection, and 3) performing the requested action until the user presses 'q' to quit
+ * Parameters: None
+ * Return None
+ */
 {
-	char reply;
+	char reply; // Used to store user input
 
 	std::cout << "Welcome to the Restaurant!" << std::endl;
 
@@ -37,7 +59,13 @@ void Menu::run()
 	while (reply != 'q');
 }
 
+
+
 void Menu::printMenu()
+/* Purpose: Prints the menu options
+ * Parameters: None
+ * Return: None
+ */
 {
 	std::cout << "\nRestaurant options:" << std::endl;
 	std::cout << "a) Add a new party to the Queue." << std::endl;
@@ -51,7 +79,12 @@ void Menu::printMenu()
 }
 
 
+
 const char Menu::getReply()
+/* Purpose: Prompts user for their menu option selecton
+ * Parameters: None
+ * Return: character representing their menu selection
+ */
 {
 	char reply; // Used to store and return user input
 
@@ -62,7 +95,12 @@ const char Menu::getReply()
 }
 
 
+
 void Menu::doCommand(const char reply)
+/* Purpose: Performs command based on the reply parameter
+ * Parameters: reply - character representing the menu selection and associated with one of the commands
+ * Return: None
+ */
 {
 	switch (reply)
 	{
@@ -95,13 +133,19 @@ void Menu::doCommand(const char reply)
 	}
 }
 
+
+
 void Menu::joinQueue()
+/* Purpose: Prompts user for the information about the party to be seated and then adds a party object with that information to the queue
+ * Parameters: None
+ * Return: None
+ */
 {
-	char partyName[MAX_SIZE];
-	int partySize;
-	char reply;
-	char requests[MAX_SIZE];
-	Party party;
+	char partyName[MAX_SIZE]; // Stores the party's name
+	int partySize; // Stores the party size
+	char reply; // Stores the user's reply to special seating requests and promotional material
+	char requests[MAX_SIZE]; // Stores the seating requests
+	Party party; // Stores the party to be added to the queue
 
 	std::cout << "\nPlease enter a name for the party: ";
 	getString(partyName);
@@ -148,7 +192,7 @@ void Menu::joinQueue()
 		getString(promoName);
 		std::cout << "Please enter your email address for receiving promotional material: ";
 		getString(promoEmail);
-		ContactInfo contact(promoName, promoEmail);
+		ContactInfo contact(promoName, promoEmail); // Stores the party's contact info if they opted into receiving promotional material
 		party = Party(partyName, partySize, requests, contact);
 	}
 	else
@@ -157,7 +201,12 @@ void Menu::joinQueue()
 }
 
 
+
 void Menu::seatParty()
+/* Purpose: Dequeues the party at the front of the queue. If the queue is empty, say so and do nothing. If the party at the front requested promotional material, add them to the promotional stack
+ * Parameters: None
+ * Return: None
+ */
 {
 	if ((*queue).getSize() > 0)
 	{
@@ -166,7 +215,7 @@ void Menu::seatParty()
 		std::cout << party << std::endl;
 		if (party.wantsPromos())
 		{
-			ContactInfo contact = party.getContact();
+			ContactInfo contact = party.getContact(); // Stores the contact info to be added to the stack if they opted in to receiving promotional material
 			(*stack).push(contact);
 			std::cout << "The following individual as agreed to receive promotional material:" << std::endl;
 			std::cout << contact << std::endl;
@@ -176,14 +225,26 @@ void Menu::seatParty()
 		std::cout << "There are no parties in the queue." << std::endl;	
 }
 
+
+
 void Menu::printQueue()
+/* Purpose: Prints the size of the queue and the information for each party in the queue.
+ * Parameters: None
+ * Return: None
+ */
 {
 	std::cout << "There are " << (*queue).getSize() << " parties in the queue." << std::endl;
 	if ((*queue).getSize() > 0)
 		(*queue).display();
 }
 
+
+
 void Menu::nextInQueue()
+/* Purpose: Prints the information of the party at the front of the queue
+ * Parameters: None
+ * Return: None
+ */
 {
 	if ((*queue).getSize() > 0)
 	{
@@ -194,7 +255,13 @@ void Menu::nextInQueue()
 		std::cout << "There are no parties in the queue." << std::endl;
 }
 
+
+
 void Menu::nextInStack()
+/* Purpose: Prints the contact information of the individual at the top of the stack
+ * Parameters: None
+ * Return: None
+ */
 {
 	if ((*stack).getSize() > 0)
 	{
@@ -208,6 +275,10 @@ void Menu::nextInStack()
 
 
 void Menu::printStack()
+/* Purpose: Prints the current size of the stack and the information of everyone in the stack from top to bottom
+ * Parameters: None
+ * Return: None
+ */
 {
 	std::cout << "There are " << (*stack).getSize() << " individuals in the promotional stack." << std::endl;
 	if ((*stack).getSize() > 0)
@@ -215,7 +286,12 @@ void Menu::printStack()
 }
 
 
+
 void Menu::sendPromos()
+/* Purpose: Removes the individual at the top of the stack from the stack, representing sending them promotional material
+ * Parameters: None
+ * Return: None
+ */
 {
 	if ((*stack).getSize() > 0)
 	{

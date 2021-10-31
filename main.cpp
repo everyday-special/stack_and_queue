@@ -1,16 +1,14 @@
-#include "stack.h"
+/* Purpose: Definition of main function
+ * Author: Matthew Lidell
+ * CS 260 Project 2
+ * Date: 10/31/2021
+ * file: main.cpp
+ */
+#include "menu.h"
 
-int main1()
+int main(int argc, char ** argv, char ** envp)
 {
-	Stack stack(4);
-	ContactInfo contact1("Matthew Lidell", "mlidell@gmail.com");
-	ContactInfo contact2("Test McTest", "mctest@testes.text");
-	stack.push(contact2);
-	stack.push(contact1);
-	stack.push(contact2);
-	stack.push(contact2);
-	stack.push(contact1);
-	stack.peek();
-	stack.display();
+	Menu menu; // Instantiate menu object
+	menu.run(); // Run the menu main loop
 	return 0;
 }

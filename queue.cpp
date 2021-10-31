@@ -1,8 +1,16 @@
-/*
+/* Purpose: Defines the menu class
+ * Author: Matthew Lidell
+ * CS260 Project 2
+ * Date: 10/31/2021
+ * file: queue.cpp
  */
 #include "queue.h"
 
 Queue::Queue()
+/* Purpose: Default constructor for queue object
+ * Parameters: None
+ * Return: None
+ */
 {
 	head = nullptr;
 	tail = nullptr;
@@ -12,6 +20,10 @@ Queue::Queue()
 
 
 Queue::~Queue()
+/* Purpose: Default destructor for queue object
+ * Parameters: None
+ * Return: None
+ */
 {
 	Node * curr = head;
 	if (tail)
@@ -27,7 +39,13 @@ Queue::~Queue()
 	tail = nullptr;
 }
 
+
+
 void Queue::enqueue(Party& newParty)
+/* Purpose: adds a new party/node to the queue
+ * Parameters: newParty - party to be added to the queue
+ * Return: None
+ */
 {
 	Node * newNode = new Node(newParty);
 	if (!head)
@@ -49,16 +67,22 @@ void Queue::enqueue(Party& newParty)
 	(*size)++;
 }
 
+
+
 Party Queue::dequeue()
+/* Purpose: removes and returns the party at the front of the queue or an empty party object if the queue is empty (empty partys can be check by using Party::isEmpty())
+ * Parameters: None
+ * Returns: Party - party at the front of the queue or empty party is queue is empty
+ */
 {
 	if ((*size) == 0)
 	{
-		Party party = Party();
+		Party party = Party(); // Empty party to be returned in the case of empty queue
 		return party;
 	}
 	else
 	{
-		Party front(*(head->data));
+		Party front(*(head->data)); // Store party at the front of the list
 		Node * temp = head;
 		if ((*size) == 1)
 		{
@@ -80,7 +104,13 @@ Party Queue::dequeue()
 	}
 }
 
+
+
 void Queue::peek()
+/* Purpose: Prints the party data at the front of the queue or "Queue is empty" if the queue is empty
+ * Parameters: None
+ * Return: None
+ */
 {
 	if ((*size) > 0)
 		std::cout << *(head->data) << std::endl;
@@ -88,7 +118,13 @@ void Queue::peek()
 		std::cout << "Queue is empty." << std::endl;
 }
 
+
+
 void Queue::display()
+/* Purpose: Prints the data of all parties in the list or "Queue is empty" if the queue is empty
+ * Parameters: None
+ * Return: None
+ */
 {
 	if ((*size) > 0)
 		recursiveDisplay(head, 0);
@@ -96,7 +132,15 @@ void Queue::display()
 		std::cout << "Queue is empty." << std::endl;
 }
 
+
+
 void Queue::recursiveDisplay(Node * curr, int idx)
+/* Purpose: Recursive backend for displaying the entire queue
+ * Parameters:
+ * 	- Node * curr - pointer to the current node in the queue
+ * 	- int idx - index of the current node in the queue
+ * Return: None
+ */
 {
 	std::cout << "Index: " << idx << std::endl;
 	std::cout << *(curr->data) << std::endl;
@@ -105,7 +149,12 @@ void Queue::recursiveDisplay(Node * curr, int idx)
 }
 
 
+
 int Queue::getSize()
+/* Purpose: returns the current size of the queue
+ * Parameters: None
+ * Return: int - current size of the queue
+ */
 {
 	return *size;
 }
