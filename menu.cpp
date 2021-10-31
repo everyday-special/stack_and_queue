@@ -3,13 +3,19 @@
 Menu::Menu()
 {
 	queue = new Queue();
-	stack = new Stack();
-	//load();
+	stack = new Stack(4);
+	if (stack->loadFromFile(FILENAME))
+		std::cout << "Loaded stack from file '" << FILENAME << "'." << std::endl;
+	else
+		std::cout << "Error loading stack from '" << FILENAME << "'." << std::endl;
 }
 
 Menu::~Menu()
 {
-	//save();
+	if (stack->saveToFile(FILENAME))
+		std::cout << "Saved stack to file '" << FILENAME << "'." << std::endl;
+	else
+		std::cout << "Error saving stack to '" << FILENAME << "'." << std::endl;
 	delete queue;
 	queue = nullptr;
 	delete stack;
@@ -153,34 +159,50 @@ void Menu::joinQueue()
 
 void Menu::seatParty()
 {
-	Party party = (*queue).dequeue();
-	std::cout << "\nNow seating:" << std::endl;
-	std::cout << party << std::endl;
-	if (party.wantsPromos())
+	if ((*queue).getSize() > 0)
 	{
-		ContactInfo contact = party.getContact();
-		(*stack).push(contact);
-		std::cout << "The following individual as agreed to receive promotional material:" << std::endl;
-		std::cout << contact << std::endl;
+		Party party = (*queue).dequeue();
+		std::cout << "\nNow seating:" << std::endl;
+		std::cout << party << std::endl;
+		if (party.wantsPromos())
+		{
+			ContactInfo contact = party.getContact();
+			(*stack).push(contact);
+			std::cout << "The following individual as agreed to receive promotional material:" << std::endl;
+			std::cout << contact << std::endl;
+		}
 	}
+	else
+		std::cout << "There are no parties in the queue." << std::endl;	
 }
 
 void Menu::printQueue()
 {
 	std::cout << "There are " << (*queue).getSize() << " parties in the queue." << std::endl;
-	(*queue).display();
+	if ((*queue).getSize() > 0)
+		(*queue).display();
 }
 
 void Menu::nextInQueue()
 {
-	std::cout << "The following party will be seated next:" << std::endl;
-	(*queue).peek();
+	if ((*queue).getSize() > 0)
+	{
+		std::cout << "The following party will be seated next:" << std::endl;
+		(*queue).peek();
+	}
+	else
+		std::cout << "There are no parties in the queue." << std::endl;
 }
 
 void Menu::nextInStack()
 {
-	std::cout << "The following individual will is next in the promotional material stack:" << std::endl;
-	(*stack).peek();
+	if ((*stack).getSize() > 0)
+	{
+		std::cout << "The following individual will is next in the promotional material stack:" << std::endl;
+		(*stack).peek();
+	}
+	else
+		std::cout << "Stack is empty." << std::endl;
 }
 
 
@@ -188,12 +210,18 @@ void Menu::nextInStack()
 void Menu::printStack()
 {
 	std::cout << "There are " << (*stack).getSize() << " individuals in the promotional stack." << std::endl;
-	(*stack).display();
+	if ((*stack).getSize() > 0)
+		(*stack).display();
 }
 
 
 void Menu::sendPromos()
 {
-	std::cout << "Sending promotional material to:" << std::endl;
-	std::cout << (*stack).pop() << std::endl;
+	if ((*stack).getSize() > 0)
+	{
+		std::cout << "Sending promotional material to:" << std::endl;
+		std::cout << (*stack).pop() << std::endl;
+	}
+	else
+		std:: cout << "Stack is empty. No promotional material sent." << std::endl;
 }

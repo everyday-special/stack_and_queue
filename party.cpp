@@ -49,13 +49,24 @@ Party::Party(const Party& refParty)
 {
 	int strLen;
 
-	strLen = strlen(refParty.name);
-	this->name = new char[++strLen];
-	strcpy(this->name, refParty.name);
-	this->size = new int(*(refParty.size));
-	strLen = strlen(refParty.requests);
-	this->requests = new char[++strLen];
-	strcpy(this->requests, refParty.requests);
+	if (refParty.name)
+	{
+		strLen = strlen(refParty.name);
+		this->name = new char[++strLen];
+		strcpy(this->name, refParty.name);
+	}
+	else
+		this->name = nullptr;
+	if (refParty.size)
+		this->size = new int(*(refParty.size));
+	else
+		this->size = nullptr;
+	if (refParty.requests)
+	{
+		strLen = strlen(refParty.requests);
+		this->requests = new char[++strLen];
+		strcpy(this->requests, refParty.requests);
+	}
 	if (refParty.contact)
 		this->contact = new ContactInfo(*(refParty.contact));
 	else
@@ -79,13 +90,28 @@ void Party::operator = (const Party& srcParty)
 {
 	int strLen;
 
-	strLen = strlen(srcParty.name);
-	this->name = new char[++strLen];
-	strcpy(this->name, srcParty.name);
-	this->size = new int(*(srcParty.size));
-	strLen = strlen(srcParty.requests);
-	this->requests = new char[++strLen];
-	strcpy(this->requests, srcParty.requests);
+	if (srcParty.name)
+	{
+		strLen = strlen(srcParty.name);
+		this->name = new char[++strLen];
+		strcpy(this->name, srcParty.name);
+	}
+	else
+		this->name = nullptr;
+	if (srcParty.size)
+	{
+		this->size = new int(*(srcParty.size));
+	}
+	else
+		this->size = nullptr;
+	if (srcParty.requests)
+	{
+		strLen = strlen(srcParty.requests);
+		this->requests = new char[++strLen];
+		strcpy(this->requests, srcParty.requests);
+	}
+	else
+		this->requests = nullptr;
 	if (srcParty.contact)
 	{
 		delete this->contact;

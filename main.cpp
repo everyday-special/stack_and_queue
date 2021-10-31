@@ -2,7 +2,7 @@
 
 int main1()
 {
-	Stack stack;
+	Stack stack(4);
 	ContactInfo contact1("Matthew Lidell", "mlidell@gmail.com");
 	ContactInfo contact2("Test McTest", "mctest@testes.text");
 	stack.push(contact2);

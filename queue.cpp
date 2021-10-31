@@ -51,35 +51,49 @@ void Queue::enqueue(Party& newParty)
 
 Party Queue::dequeue()
 {
-	Party front(*(head->data));
-	Node * temp = head;
-	if ((*size) == 1)
+	if ((*size) == 0)
 	{
-		head = nullptr;
-		tail = nullptr;
-		delete temp;
-		temp = nullptr;
+		Party party = Party();
+		return party;
 	}
 	else
 	{
-		head = head->next;
-		delete temp;
-		temp = nullptr;
-		head->prev = tail;
-		tail->next = head;
+		Party front(*(head->data));
+		Node * temp = head;
+		if ((*size) == 1)
+		{
+			head = nullptr;
+			tail = nullptr;
+			delete temp;
+			temp = nullptr;
+		}
+		else
+		{
+			head = head->next;
+			delete temp;
+			temp = nullptr;
+			head->prev = tail;
+			tail->next = head;
+		}
+		(*size)--;
+		return front;
 	}
-	(*size)--;
-	return front;
 }
 
 void Queue::peek()
 {
-	std::cout << *(head->data) << std::endl;
+	if ((*size) > 0)
+		std::cout << *(head->data) << std::endl;
+	else
+		std::cout << "Queue is empty." << std::endl;
 }
 
 void Queue::display()
 {
-	recursiveDisplay(head, 0);
+	if ((*size) > 0)
+		recursiveDisplay(head, 0);
+	else
+		std::cout << "Queue is empty." << std::endl;
 }
 
 void Queue::recursiveDisplay(Node * curr, int idx)

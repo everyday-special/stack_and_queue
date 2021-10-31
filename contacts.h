@@ -18,8 +18,8 @@ class ContactInfo
 		ContactInfo(const char name[], const char email[]);
 		ContactInfo(const ContactInfo& refInfo);
 		void operator = (const ContactInfo& srcInfo);
-		//void setName(const char newName[]);
-		//void setEmail(const char newEmail[]);
+		void getName(char newName[]);
+		void getEmail(char newEmail[]);
 		~ContactInfo();
 		bool isEmpty();
 		

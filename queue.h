@@ -37,4 +37,6 @@ class Queue
 		Node *head, *tail;
 		int * size;
 		void recursiveDisplay(Node * curr, int idx);
+		bool saveToFile(const char fileName[]);
+		bool loadFromFile(const char fileName[]);
 };
