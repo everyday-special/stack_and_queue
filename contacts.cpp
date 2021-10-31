@@ -49,6 +49,16 @@ void ContactInfo::operator = (const ContactInfo& srcInfo)
 	strcpy(this->email, srcInfo.email);
 }
 
+
+bool ContactInfo::isEmpty()
+{
+	if (!name)
+		return false;
+	else
+		return true;
+}
+
+
 std::ostream& operator<<(std::ostream& out, const ContactInfo& contactInfo)
 {
 	out << "Name: " << contactInfo.name << "\nEmail: " << contactInfo.email << std::endl;

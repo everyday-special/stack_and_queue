@@ -14,18 +14,20 @@ class Party
 {
 	public:
 		Party();
-		Party(const char name[], const int size, const bool haveRequests, const char requests[], const bool wantPromos, const ContactInfo& contact);
+		Party(const char name[], const int size, const char requests[], const ContactInfo& contact);
+		Party(const char name[], const int size, const char requests[]);
 		Party(const Party& refParty);
 		~Party();
-		void operator = (const Party& srcParty);	
+		void operator = (const Party& srcParty);
+		bool wantsPromos();
+		ContactInfo getContact();
+		bool isEmpty();
 
 		friend std::ostream& operator<<(std::ostream& out, const Party& party);
 
 	private:
 		char * name;
 		int * size;
-		bool * haveRequests;
 		char * requests;
-		bool * wantPromos;
 		ContactInfo * contact;
 };

@@ -13,6 +13,7 @@ class Queue
 		Party dequeue();
 		void peek();
 		void display();
+		int getSize();
 
 	private:
 		struct Node
@@ -35,5 +36,5 @@ class Queue
 		};
 		Node *head, *tail;
 		int * size;
-		void recursiveDisplay(Node * curr);
+		void recursiveDisplay(Node * curr, int idx);
 };

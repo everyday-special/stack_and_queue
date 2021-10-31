@@ -13,6 +13,7 @@ class Stack
 		ContactInfo pop();
 		void peek();
 		void display();
+		int getSize();
 	
 	private:
 		void grow();

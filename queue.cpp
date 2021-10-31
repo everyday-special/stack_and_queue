@@ -14,7 +14,8 @@ Queue::Queue()
 Queue::~Queue()
 {
 	Node * curr = head;
-	tail->next = nullptr;
+	if (tail)
+		tail->next = nullptr;
 	while(curr)
 	{
 		head = head->next;
@@ -52,11 +53,21 @@ Party Queue::dequeue()
 {
 	Party front(*(head->data));
 	Node * temp = head;
-	head = head->next;
-	delete temp;
-	temp = nullptr;
-	head->prev = tail;
-	tail->next = head;
+	if ((*size) == 1)
+	{
+		head = nullptr;
+		tail = nullptr;
+		delete temp;
+		temp = nullptr;
+	}
+	else
+	{
+		head = head->next;
+		delete temp;
+		temp = nullptr;
+		head->prev = tail;
+		tail->next = head;
+	}
 	(*size)--;
 	return front;
 }
@@ -68,12 +79,19 @@ void Queue::peek()
 
 void Queue::display()
 {
-	recursiveDisplay(head);
+	recursiveDisplay(head, 0);
 }
 
-void Queue::recursiveDisplay(Node * curr)
+void Queue::recursiveDisplay(Node * curr, int idx)
 {
+	std::cout << "Index: " << idx << std::endl;
 	std::cout << *(curr->data) << std::endl;
 	if (curr != tail)
-		recursiveDisplay(curr->next);
+		recursiveDisplay(curr->next, ++idx);
+}
+
+
+int Queue::getSize()
+{
+	return *size;
 }

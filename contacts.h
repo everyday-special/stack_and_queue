@@ -21,6 +21,7 @@ class ContactInfo
 		//void setName(const char newName[]);
 		//void setEmail(const char newEmail[]);
 		~ContactInfo();
+		bool isEmpty();
 		
 		friend std::ostream& operator<<(std::ostream& out, const ContactInfo& contactInfo);
 

@@ -45,3 +45,15 @@ void Stack::push(ContactInfo& newContact)
 	if (*size == *max)
 		grow();
 }
+
+
+ContactInfo Stack::pop()
+{
+	return contacts[--(*size)];
+}
+
+
+int Stack::getSize()
+{
+	return *size;
+}
