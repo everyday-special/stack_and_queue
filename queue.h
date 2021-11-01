@@ -23,10 +23,8 @@ class Queue
  *	-peek() - prints party/Node at the front of the queue
  *	-display() - prints the size of the queue and all parties in the queue
  *	-getSize() - returns the size of the queue
- * This class has 3 private member fuctions:
+ * This class has 1 private member fuctions:
  * 	-recursiveDisplay() - recursive backend for displaying all the items in the list
- * 	-loadFromFile() - loads data from "stack.txt" into the stack upon instantiation
- * 	-saveToFile() - saves stack to from "stack.txt" before destructing the stack
  */
 {
 	public:
@@ -78,6 +76,4 @@ class Queue
 		Node *head, *tail; // Used for storing references to front and back of queue
 		int * size; // Used for storing the queue size
 		void recursiveDisplay(Node * curr, int idx);
-		bool saveToFile(const char fileName[]);
-		bool loadFromFile(const char fileName[]);
 };

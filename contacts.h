@@ -10,7 +10,21 @@
 #include <ostream>
 
 class ContactInfo
-/*
+/* Class representing an individuals contact information for promotional purposes
+ * This class has 2 private data members:
+ * 	- name - cstring representing the persons name
+ * 	- email - cstring representing the persons email
+ * This class has 8 public member functions:
+ * 	- Default constructor
+ * 	- Constructor that takes cstrings to populate name and email
+ * 	- Copy Constructor
+ * 	- Assignment operator
+ * 	- getName() - gets the ContactInfo's name
+ * 	- getEmail() - gets the email associated with the ContactInfo
+ * 	- Default destructor
+ * 	- isEmpty() - returns true if name and email are set, false if they're unset
+ * This class has 1 friend function:
+ * 	- overloaded << operator for printing ContactInfo data
  */
 {
 	public:
@@ -26,6 +40,6 @@ class ContactInfo
 		friend std::ostream& operator<<(std::ostream& out, const ContactInfo& contactInfo);
 
 	private:
-		char * name;
-		char * email;
+		char * name; // pointer to cstring for storing the name
+		char * email; // pointer to cstring for storing the email
 };

@@ -68,14 +68,14 @@ void Menu::printMenu()
  */
 {
 	std::cout << "\nRestaurant options:" << std::endl;
-	std::cout << "a) Add a new party to the Queue." << std::endl;
-	std::cout << "b) Seat the next party in the Queue." << std::endl;
-	std::cout << "c) View the next party in the Queue (without seating them)." << std::endl;
-	std::cout << "d) View the entire Queue." << std::endl;
-	std::cout << "e) View all the previous customers interested in promotional material." << std::endl;
-	std::cout << "f) View the most recent customer." << std::endl;
-	std::cout << "g) Send out promotional material to recent customers." << std::endl;
-	std::cout << "q) Quit." << std::endl;
+	std::cout << "a) Add a new party to the Queue. (enqueue)" << std::endl;
+	std::cout << "b) Seat the next party in the Queue. (dequeue and push to stack)" << std::endl;
+	std::cout << "c) View the next party in the Queue (without seating them). (peek queue)" << std::endl;
+	std::cout << "d) View the entire Queue. (display queue)" << std::endl;
+	std::cout << "e) View all the previous customers interested in promotional material. (display stack)" << std::endl;
+	std::cout << "f) View the most recent customer interested in receiving promotional material. (peek stack)" << std::endl;
+	std::cout << "g) Send out promotional material to the most recent customer who opted in. (pop stack)" << std::endl;
+	std::cout << "q) Quit.\n" << std::endl;
 }
 
 
@@ -102,6 +102,7 @@ void Menu::doCommand(const char reply)
  * Return: None
  */
 {
+	std::cout << std::endl;
 	switch (reply)
 	{
 		case 'a':

@@ -8,6 +8,10 @@
 #include "party.h"
 
 Party::Party()
+/* Purpose: Default constructor for party class
+ * Parameters: None
+ * Return: None
+ */
 {
 	name = nullptr;
 	size = nullptr;
@@ -15,9 +19,19 @@ Party::Party()
 	contact = nullptr;
 }
 
+
+
 Party::Party(const char name[], const int size, const char requests[], const ContactInfo& contact)
+/* Purpose: Overloaded constructor for parties with contactInfo object
+ * Parameters:
+ * 	-const char name[] - cstring for the name associated with the party object
+ * 	-const int size - int representing the size of the party
+ * 	-const char requests[] - cstring for the special seating requests for the party
+ * 	-const ContactInfo& contact - ContactInfo object associated with the party object
+ * Return: None
+ */
 {
-	int strLen;
+	int strLen; // Holds length of parameter cstrings to dynamically allocate party cstrings
 
 	strLen = strlen(name);
 	this->name = new char[++strLen];
@@ -30,9 +44,19 @@ Party::Party(const char name[], const int size, const char requests[], const Con
 }
 
 
+
 Party::Party(const char name[], const int size, const char requests[])
+/* Purpose: Overloaded constructor for parties without contactInfo object
+ * Parameters:
+ *      -const char name[] - cstring for the name associated with the party object
+ *      -const int size - int representing the size of the party
+ *      -const char requests[] - cstring for the special seating requests for th
+e party
+ty object
+ * Return: None
+ */
 {
-	int strLen;
+	int strLen; // Holds length of parameter cstrings to dynamically allocate party cstrings
 
 	strLen = strlen(name);
 	this->name = new char[++strLen];
@@ -45,9 +69,14 @@ Party::Party(const char name[], const int size, const char requests[])
 }
 
 
+
 Party::Party(const Party& refParty)
+/* Purpose: Copy Constructor for party objects
+ * Parameters: const Party& refParty - party object being copied into new object
+ * Return: None
+ */
 {
-	int strLen;
+	int strLen; // Holds length of parameter cstrings to dynamically allocate party cstrings
 
 	if (refParty.name)
 	{
@@ -73,7 +102,13 @@ Party::Party(const Party& refParty)
 		this->contact = nullptr;
 }
 
+
+
 Party::~Party()
+/* Purpose: Destructor for party objects
+ * Parameters: None
+ * Return: None
+ */
 {
 	delete [] name;
 	name = nullptr;
@@ -86,9 +121,14 @@ Party::~Party()
 }
 
 
+
 void Party::operator = (const Party& srcParty)
+/* Purpose: Assignment operator for party objects
+ * Parameters: const Party& srcParty - party object being copied into new party object
+ * Return: None
+ */
 {
-	int strLen;
+	int strLen; // Holds length of parameter cstrings to dynamically allocate party cstrings
 
 	if (srcParty.name)
 	{
@@ -125,7 +165,12 @@ void Party::operator = (const Party& srcParty)
 }
 
 
+
 bool Party::wantsPromos()
+/* Purpose: checks if party has contact info associated with it.
+ * Parameters: None
+ * Return: True if party has a contactInfo object, false if not
+ */
 {
 	if (this->contact == nullptr)
 		return false;
@@ -136,23 +181,43 @@ bool Party::wantsPromos()
 
 
 ContactInfo Party::getContact()
+/* Purpose: gets the contactInfo object associated with the party object
+ * Parameters: None
+ * Return: ContactInfo - contactInfo object associated with the party object, or empty ContactInfo object if there is none
+ */
 {
-	return *(this->contact);
+	if (!contact)
+	{
+		ContactInfo contact = ContactInfo(); // Empty contact object if no contactInfo object is associated with the party
+		return contact;
+	}
+	else
+		return *(this->contact);
 }
 
 
 
 bool Party::isEmpty()
+/* Purpose: Checks if the party object has any data associated with it
+ * Parameters: None
+ * Return: True if name, size, or request data is missing, false if all 3 data is present
+ */
 {
-	if (!name)
-		return false;
-	else
+	if (!name || !size || !requests)
 		return true;
+	else
+		return false;
 }
 
 
 
 std::ostream& operator<<(std::ostream& out, const Party& Party)
+/* Purpose: Overloaded << operator for printing party object data
+ * Parameters:
+ * 	-std::ostream& out - ostream object for printing data
+ * 	-const Party& Party - party object whose data is being printed
+ * Return: std::ostream& - ostream object with data being printed
+ */
 {
 	out << "Party Name: " << Party.name << std::endl;
 	out << "Size: " << *(Party.size) << std::endl;

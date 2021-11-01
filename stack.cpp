@@ -1,13 +1,29 @@
+/* Purpose: Defines the menu class
+ * Author: Matthew Lidell
+ * CS260 Project 2
+ * Date: 10/31/2021
+ * file: stack.cpp
+ */
 #include "stack.h"
 
 Stack::Stack(int max)
+/* Purpose: Constructor for stack objects
+ * Parameters: int max - initial size to allocate for contacts array
+ * Return: None
+ */
 {
 	this->max = new int(max);
 	size = new int(0);
 	contacts = new ContactInfo[*(this->max)];
 }
 
+
+
 Stack::~Stack()
+/* Purpose: Destructor for stack objects
+ * Parameters: None
+ * Return: None
+ */
 {
 	delete max;
 	max = nullptr;
@@ -17,17 +33,29 @@ Stack::~Stack()
 	contacts = nullptr;
 }
 
+
+
 void Stack::grow()
+/* Purpose: Allocate a new array twice as large as the current array when it fills up
+ * Parameters: None
+ * Return: None
+ */
 {
 	*max = 2 * *max;
-	ContactInfo * temp = new ContactInfo[*max];
+	ContactInfo * temp = new ContactInfo[*max]; // new, larger array
 	for (int i = 0; i < *size; i++)
 		temp[i] = contacts[i];
 	delete [] contacts;
 	contacts = temp;
 }
 
+
+
 void Stack::peek()
+/* Purpose: Display the ContactInfo object at the top of the stack or print "Stack is empty"
+ * Parameters: None
+ * Return: None
+ */
 {
 	if ((*size) > 0)
 		std::cout << contacts[*size - 1] << std::endl;
@@ -35,7 +63,13 @@ void Stack::peek()
 		std::cout << "Stack is empty." << std::endl;
 }
 
+
+
 void Stack::display()
+/* Purpose: Display all the ContactInfo objects in the stack, from top to bottom, or print "Stack is empty"
+ * Parameters: None
+ * Return: None
+ */
 {
 	if ((*size) > 0)
 	{
@@ -47,7 +81,13 @@ void Stack::display()
 		std::cout << "Stack is empty." << std::endl;
 }
 
+
+
 void Stack::push(ContactInfo& newContact)
+/* Purpose: Adds ContactInfo object to the top of the stack
+ * Parameters: ContactInfo newContact - new ContactInfo object to be added to the stack
+ * Return: None
+ */
 {
 	contacts[(*size)++] = newContact;
 	if (*size == *max)
@@ -55,7 +95,12 @@ void Stack::push(ContactInfo& newContact)
 }
 
 
+
 ContactInfo Stack::pop()
+/* Purpose: removes and returns the ContactInfo object at the top of the stack, or an empty ContactInfo object if the stack is empty. Empty ContactInfo objects can be detected using ContactInfo::isEmpty()
+ * Parameters: None
+ * Return: ContactInfo - object at the top of the stack
+ */
 {
 	if ((*size) > 0)
 		return contacts[--(*size)];
@@ -67,13 +112,23 @@ ContactInfo Stack::pop()
 }
 
 
+
 int Stack::getSize()
+/* Purpose: Returns the current size of the stack
+ * Parameters: None
+ * Return: int - current size of the stack
+ */
 {
 	return *size;
 }
 
 
+
 bool Stack::saveToFile(const char fileName[])
+/* Purpose: Saves the data in the current stack to a file
+ * Parameters: const char fileName - name of the file to save the stack data to
+ * Return: None
+ */
 {
 	std::ofstream outFile;
 	char tempName[MAX_SIZE];
@@ -96,6 +151,10 @@ bool Stack::saveToFile(const char fileName[])
 
 
 bool Stack::loadFromFile(const char fileName[])
+/* Purpose: Loads data from text file into the stack
+ * Parameters: const char fileName[] - name of the file containing data to be loaded into the stack
+ * Return: None
+ */
 {
 	std::ifstream inFile;
 	char tempName[MAX_SIZE];
