@@ -1,6 +1,5 @@
 /* Assignment: Project 2
  * Author: Matthew Lidell
- * Class: CS 260
  * Date: 10/17/2021
  * file: contacts.h
  * Purpose: Defines the ContactInfo class

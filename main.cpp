@@ -1,6 +1,5 @@
 /* Purpose: Definition of main function
  * Author: Matthew Lidell
- * CS 260 Project 2
  * Date: 10/31/2021
  * file: main.cpp
  */

@@ -1,6 +1,5 @@
 /* Purpose: Defines the menu class member fuctions
  * Author: Matthew Lidell
- * CS260 Project 2
  * Date: 10/31/2021
  * file: menu.cpp
  */
